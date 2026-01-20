@@ -1,0 +1,294 @@
+================================================================================
+=================== SISTEMA DE DIAGNÓSTICO DE CÂNCER DE MAMA ===================
+================================================================================
+
+================================================================================
+                          ETAPA 1: EXPLORAÇÃO DE DADOS
+================================================================================
+
+================================================================================
+                     1.1 CARREGAMENTO E EXPLORAÇÃO INICIAL
+================================================================================
+
+Dados carregados: 569 linhas x 33 colunas
+
+Primeiras 5 linhas do dataset:
+         id diagnosis  radius_mean  texture_mean  perimeter_mean  ...  concavity_worst  concave points_worst  symmetry_worst  fractal_dimension_worst  Unnamed: 32
+0    842302         M        17.99         10.38          122.80  ...           0.7119                0.2654          0.4601                  0.11890          NaN
+1    842517         M        20.57         17.77          132.90  ...           0.2416                0.1860          0.2750                  0.08902          NaN
+2  84300903         M        19.69         21.25          130.00  ...           0.4504                0.2430          0.3613                  0.08758          NaN
+3  84348301         M        11.42         20.38           77.58  ...           0.6869                0.2575          0.6638                  0.17300          NaN
+4  84358402         M        20.29         14.34          135.10  ...           0.4000                0.1625          0.2364                  0.07678          NaN
+
+[5 rows x 33 columns]
+
+Informações sobre as colunas:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 569 entries, 0 to 568
+Data columns (total 33 columns):
+ #   Column                   Non-Null Count  Dtype  
+---  ------                   --------------  -----  
+ 0   id                       569 non-null    int64  
+ 1   diagnosis                569 non-null    object 
+ 2   radius_mean              569 non-null    float64
+ 3   texture_mean             569 non-null    float64
+ 4   perimeter_mean           569 non-null    float64
+ 5   area_mean                569 non-null    float64
+ 6   smoothness_mean          569 non-null    float64
+ 7   compactness_mean         569 non-null    float64
+ 8   concavity_mean           569 non-null    float64
+ 9   concave points_mean      569 non-null    float64
+ 10  symmetry_mean            569 non-null    float64
+ 11  fractal_dimension_mean   569 non-null    float64
+ 12  radius_se                569 non-null    float64
+ 13  texture_se               569 non-null    float64
+ 14  perimeter_se             569 non-null    float64
+ 15  area_se                  569 non-null    float64
+ 16  smoothness_se            569 non-null    float64
+ 17  compactness_se           569 non-null    float64
+ 18  concavity_se             569 non-null    float64
+ 19  concave points_se        569 non-null    float64
+ 20  symmetry_se              569 non-null    float64
+ 21  fractal_dimension_se     569 non-null    float64
+ 22  radius_worst             569 non-null    float64
+ 23  texture_worst            569 non-null    float64
+ 24  perimeter_worst          569 non-null    float64
+ 25  area_worst               569 non-null    float64
+ 26  smoothness_worst         569 non-null    float64
+ 27  compactness_worst        569 non-null    float64
+ 28  concavity_worst          569 non-null    float64
+ 29  concave points_worst     569 non-null    float64
+ 30  symmetry_worst           569 non-null    float64
+ 31  fractal_dimension_worst  569 non-null    float64
+ 32  Unnamed: 32              0 non-null      float64
+dtypes: float64(31), int64(1), object(1)
+memory usage: 146.8+ KB
+None
+
+Estatísticas descritivas das features numéricas:
+                 id  radius_mean  texture_mean  perimeter_mean    area_mean  ...  concavity_worst  concave points_worst  symmetry_worst  fractal_dimension_worst  Unnamed: 32
+count  5.690000e+02   569.000000    569.000000      569.000000   569.000000  ...       569.000000            569.000000      569.000000               569.000000          0.0       
+mean   3.037183e+07    14.127292     19.289649       91.969033   654.889104  ...         0.272188              0.114606        0.290076                 0.083946          NaN       
+std    1.250206e+08     3.524049      4.301036       24.298981   351.914129  ...         0.208624              0.065732        0.061867                 0.018061          NaN       
+min    8.670000e+03     6.981000      9.710000       43.790000   143.500000  ...         0.000000              0.000000        0.156500                 0.055040          NaN       
+25%    8.692180e+05    11.700000     16.170000       75.170000   420.300000  ...         0.114500              0.064930        0.250400                 0.071460          NaN       
+50%    9.060240e+05    13.370000     18.840000       86.240000   551.100000  ...         0.226700              0.099930        0.282200                 0.080040          NaN       
+75%    8.813129e+06    15.780000     21.800000      104.100000   782.700000  ...         0.382900              0.161400        0.317900                 0.092080          NaN       
+max    9.113205e+08    28.110000     39.280000      188.500000  2501.000000  ...         1.252000              0.291000        0.663800                 0.207500          NaN       
+
+[8 rows x 32 columns]
+
+================================================================================
+                      1.2. ANÁLISE DE QUALIDADE DOS DADOS
+================================================================================
+
+Verificação de valores ausentes:
+Valores ausentes por coluna:
+Unnamed: 32    569
+dtype: int64
+
+Linhas duplicadas: 0
+
+================================================================================
+                      ETAPA 2: PRÉ-PROCESSAMENTO DOS DADOS
+================================================================================
+
+================================================================================
+                             2.1. LIMPEZA DOS DADOS
+================================================================================
+
+Remoção de colunas desnecessárias:
+Colunas 'id' e 'Unnamed: 32' removidas
+Dimensões atualizadas: 569 linhas x 31 colunas
+
+================================================================================
+                        2.2. ANÁLISE DA VARIÁVEL TARGET
+================================================================================
+
+Distribuição da variável 'diagnosis':
+diagnosis
+B    357
+M    212
+Name: count, dtype: int64
+
+Proporção:
+  B (Benigno): 62.74%
+  M (Maligno): 37.26%
+
+Balanceamento do dataset:
+  Benignos (B): 357 (62.7%)
+  Malignos (M): 212 (37.3%)
+
+================================================================================
+                    2.3. CONVERSÃO DE VARIÁVEIS CATEGÓRICAS
+================================================================================
+
+Codificação da variável 'diagnosis':
+Mapeamento realizado:
+  B (Benigno) -> 0
+  M (Maligno) -> 1
+
+================================================================================
+                         2.4. ANÁLISE DE DISTRIBUIÇÕES
+================================================================================
+
+Analisando distribuições das principais features...
+
+Observações:
+- As features apresentam separação visível entre as classes
+- Tumores malignos tendem a ter valores mais altos nas características geométricas
+
+================================================================================
+                           2.5. ANÁLISE DE CORRELAÇÃO
+================================================================================
+
+Top 15 features mais correlacionadas com o diagnóstico:
+concave points_worst    0.793566
+perimeter_worst         0.782914
+concave points_mean     0.776614
+radius_worst            0.776454
+perimeter_mean          0.742636
+area_worst              0.733825
+radius_mean             0.730029
+area_mean               0.708984
+concavity_mean          0.696360
+concavity_worst         0.659610
+compactness_mean        0.596534
+compactness_worst       0.590998
+radius_se               0.567134
+perimeter_se            0.556141
+area_se                 0.548236
+Name: diagnosis, dtype: float64
+
+Principais observações:
+- Features geométricas (radius, perimeter, area) com alta correlação entre si
+- Concave points e concavity mostram forte correlação com malignidade
+
+================================================================================
+                        ETAPA 3: DIVISÃO E NORMALIZAÇÃO
+================================================================================
+
+Features (X): 30 variáveis
+Target (y): 569 amostras
+
+Divisão: 70% Treino | 15% Validação | 15% Teste
+
+TREINO: 398 amostras (69.9%)
+VALIDAÇÃO: 85 amostras (14.9%)
+TESTE: 86 amostras (15.1%)
+
+StandardScaler aplicado com sucesso
+
+================================================================================
+                        ETAPA 4: TREINAMENTO DOS MODELOS
+================================================================================
+
+--------------------------------------------------------------------------------
+                                 MODELO 1: SVM
+--------------------------------------------------------------------------------
+
+VALIDAÇÃO:
+Accuracy: 0.9529
+Precision: 1.0000
+Recall: 0.8750
+F1-Score: 0.9333
+ROC-AUC: 0.9959
+
+TESTE:
+Accuracy: 0.9651
+Precision: 1.0000
+Recall: 0.9062
+F1-Score: 0.9508
+ROC-AUC: 1.0000
+
+--------------------------------------------------------------------------------
+                            MODELO 2: RANDOM FOREST
+--------------------------------------------------------------------------------
+
+VALIDAÇÃO:
+Accuracy: 0.9412
+Precision: 1.0000
+Recall: 0.8438
+F1-Score: 0.9153
+ROC-AUC: 0.9953
+
+TESTE:
+Accuracy: 0.9767
+Precision: 1.0000
+Recall: 0.9375
+F1-Score: 0.9677
+ROC-AUC: 0.9977
+
+================================================================================
+                        ETAPA 5: COMPARAÇÃO DOS MODELOS
+================================================================================
+
+VALIDAÇÃO:
+       Modelo  Accuracy  Precision  Recall  F1-Score  ROC-AUC
+          SVM  0.952941        1.0 0.87500  0.933333 0.995873
+Random Forest  0.941176        1.0 0.84375  0.915254 0.995283
+
+TESTE:
+       Modelo  Accuracy  Precision  Recall  F1-Score  ROC-AUC
+          SVM  0.965116        1.0 0.90625  0.950820 1.000000
+Random Forest  0.976744        1.0 0.93750  0.967742 0.997685
+
+================================================================================
+                         ETAPA 6: MATRIZES DE CONFUSÃO
+================================================================================
+
+================================================================================
+                              ETAPA 7: CURVAS ROC
+================================================================================
+
+================================================================================
+                        ETAPA 8: CLASSIFICATION REPORTS
+================================================================================
+
+SVM - TESTE:
+              precision    recall  f1-score   support
+
+     Benigno       0.95      1.00      0.97        54
+     Maligno       1.00      0.91      0.95        32
+
+    accuracy                           0.97        86
+   macro avg       0.97      0.95      0.96        86
+weighted avg       0.97      0.97      0.96        86
+
+
+RANDOM FOREST - TESTE:
+              precision    recall  f1-score   support
+
+     Benigno       0.96      1.00      0.98        54
+     Maligno       1.00      0.94      0.97        32
+
+    accuracy                           0.98        86
+   macro avg       0.98      0.97      0.97        86
+weighted avg       0.98      0.98      0.98        86
+
+
+================================================================================
+                          ETAPA 9: FEATURE IMPORTANCE
+================================================================================
+
+Top 15 features:
+             Feature  Importance
+          area_worst    0.176465
+ concave points_mean    0.109108
+concave points_worst    0.099130
+        radius_worst    0.085480
+     perimeter_worst    0.078054
+      perimeter_mean    0.073460
+           area_mean    0.062926
+      concavity_mean    0.055661
+         radius_mean    0.046809
+             area_se    0.034063
+     concavity_worst    0.025957
+       texture_worst    0.019219
+   compactness_worst    0.017486
+      symmetry_worst    0.014319
+           radius_se    0.013227
+
+================================================================================
+                               ANÁLISE CONCLUÍDA
+================================================================================
